@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/telebot
+    username: telebot
+    password: telebot
+  profiles:
+    active: local
+
+logging:
+  level:
+    ROOT: INFO
+    org.devmpv.telebot: DEBUG
+
+telebot:
+  auth:
+    username: "{$bot_username}"
+    token: "{$bot_auth_token}"

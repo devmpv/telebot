@@ -18,7 +18,7 @@
 		<kotlin.version>1.5.31</kotlin.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
 		<testcontainers.version>1.16.0</testcontainers.version>
-		<kotlin-logging-jvm.version>2.0.11</kotlin-logging-jvm.version>
+		<kotlin-logging-jvm.version>2.1.0</kotlin-logging-jvm.version>
 		<telegrambots.version>5.4.0.1</telegrambots.version>
 	</properties>
 	<dependencies>
@@ -166,6 +166,26 @@
 						<version>${kotlin.version}</version>
 					</dependency>
 				</dependencies>
+				<executions>
+					<execution>
+						<id>kapt</id>
+						<goals>
+							<goal>kapt</goal>
+						</goals>
+						<configuration>
+							<sourceDirs>
+								<sourceDir>src/main/kotlin</sourceDir>
+							</sourceDirs>
+							<annotationProcessorPaths>
+								<annotationProcessorPath>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-configuration-processor</artifactId>
+									<version>${parent.version}</version>
+								</annotationProcessorPath>
+							</annotationProcessorPaths>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
