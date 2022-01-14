@@ -1,8 +1,10 @@
 package org.devmpv.telebot.bot
 
 import mu.KotlinLogging
-import org.devmpv.telebot.client.OpenWeatherClient
-import org.devmpv.telebot.config.TelebotProperties
+import org.devmpv.telebot.config.properties.OpenWeatherProperties
+import org.devmpv.telebot.config.properties.TelebotProperties
+import org.devmpv.telebot.service.WeatherService
+import org.devmpv.telebot.utils.message.CurrentWeatherMessageBuilder
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
@@ -12,7 +14,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException
 @Component
 class DefaultBot(
     private val telebotProperties: TelebotProperties,
-    private val openWeatherClient: OpenWeatherClient
+    private val weatherService: WeatherService,
+    private val weatherProperties: OpenWeatherProperties
 ) : TelegramLongPollingBot() {
 
     private val logger = KotlinLogging.logger {}
@@ -27,14 +30,8 @@ class DefaultBot(
 
     override fun onUpdateReceived(update: Update) {
         if (update.hasMessage()) {
-            val message = SendMessage()
-            message.chatId = update.message.chatId.toString()
-            if (update.message.document?.mimeType == "video/mp4") {
-                message.text = "Video!"
-            } else {
-                message.text = "No video"
-            }
-            reply(message)
+            val weatherReport = weatherService.getCachedCurrentWeather(weatherProperties.defaultLocation)
+            reply(CurrentWeatherMessageBuilder.toMessage(update.message.chatId, weatherReport))
         }
     }
 

@@ -1,5 +1,6 @@
-package org.devmpv.telebot.client
+package org.devmpv.telebot.client.openweather
 
+import org.devmpv.telebot.client.openweather.api.OneCallResponse
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -11,6 +12,8 @@ interface OpenWeather {
     fun oneCall(
         @RequestParam lat: Double,
         @RequestParam lon: Double,
-        @RequestParam appid: String
-    ): String?
+        @RequestParam appid: String,
+        @RequestParam exclude: Array<Exclude>? = arrayOf(Exclude.alerts),
+        @RequestParam units: Units = Units.metric
+    ): OneCallResponse?
 }
