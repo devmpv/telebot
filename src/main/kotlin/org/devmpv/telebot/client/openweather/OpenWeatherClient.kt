@@ -2,6 +2,7 @@ package org.devmpv.telebot.client.openweather
 
 import feign.FeignException
 import mu.KotlinLogging
+import org.devmpv.telebot.client.openweather.api.Exclude
 import org.devmpv.telebot.client.openweather.api.OneCallResponse
 import org.devmpv.telebot.config.properties.OpenWeatherProperties
 import org.springframework.stereotype.Component

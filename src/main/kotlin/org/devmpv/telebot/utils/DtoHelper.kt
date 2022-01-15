@@ -1,8 +1,8 @@
 package org.devmpv.telebot.utils
 
-import org.devmpv.telebot.client.openweather.api.Current
-import org.devmpv.telebot.client.openweather.api.Daily
-import org.devmpv.telebot.client.openweather.api.Hourly
+import org.devmpv.telebot.client.openweather.api.data.Current
+import org.devmpv.telebot.client.openweather.api.data.Daily
+import org.devmpv.telebot.client.openweather.api.data.Hourly
 import org.devmpv.telebot.client.openweather.api.OneCallResponse
 import org.devmpv.telebot.domain.weather.WeatherData
 import org.devmpv.telebot.domain.weather.WeatherReport

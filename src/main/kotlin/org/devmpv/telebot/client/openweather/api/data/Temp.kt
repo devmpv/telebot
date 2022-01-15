@@ -1,4 +1,4 @@
-package org.devmpv.telebot.client.openweather.api
+package org.devmpv.telebot.client.openweather.api.data
 
 data class Temp (
 	val day : Double,

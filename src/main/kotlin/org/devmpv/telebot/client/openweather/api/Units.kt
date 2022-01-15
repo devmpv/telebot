@@ -1,4 +1,4 @@
-package org.devmpv.telebot.client.openweather
+package org.devmpv.telebot.client.openweather.api
 
 enum class Units {
     standard,
