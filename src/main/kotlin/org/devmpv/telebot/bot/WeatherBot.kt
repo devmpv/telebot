@@ -1,26 +1,29 @@
 package org.devmpv.telebot.bot
 
 import mu.KotlinLogging
+import org.devmpv.telebot.bot.commands.Commands
+import org.devmpv.telebot.bot.commands.WeatherCommand
 import org.devmpv.telebot.config.properties.OpenWeatherProperties
 import org.devmpv.telebot.config.properties.TelebotProperties
 import org.devmpv.telebot.service.WeatherService
 import org.devmpv.telebot.utils.message.CurrentWeatherMessageBuilder
 import org.springframework.stereotype.Component
-import org.telegram.telegrambots.bots.TelegramLongPollingBot
+import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException
 
 @Component
-class DefaultBot(
+class WeatherBot(
     private val telebotProperties: TelebotProperties,
-    private val weatherService: WeatherService,
-    private val weatherProperties: OpenWeatherProperties
-) : TelegramLongPollingBot() {
+    private val weatherCommand: WeatherCommand
+) : TelegramLongPollingCommandBot() {
 
     private val logger = KotlinLogging.logger {}
 
     init {
+        register(weatherCommand)
+
         logger.info { "Initializing bot named ${telebotProperties.auth.username}" }
     }
 
@@ -28,10 +31,9 @@ class DefaultBot(
 
     override fun getBotUsername() = telebotProperties.auth.username
 
-    override fun onUpdateReceived(update: Update) {
-        if (update.hasMessage()) {
-            val weatherReport = weatherService.getCachedCurrentWeather(weatherProperties.defaultLocation)
-            reply(CurrentWeatherMessageBuilder.toMessage(update.message.chatId, weatherReport))
+    override fun processNonCommandUpdate(update: Update?) {
+        if (update != null && update.hasMessage()) {
+            reply(SendMessage(update.message.chatId.toString(), "UnknownCommand"))
         }
     }
 

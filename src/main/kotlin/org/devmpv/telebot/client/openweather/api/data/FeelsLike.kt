@@ -1,6 +1,6 @@
 package org.devmpv.telebot.client.openweather.api.data
 
-data class Feels_like (
+data class FeelsLike (
 	val day : Double,
 	val night : Double,
 	val eve : Double,

@@ -91,6 +91,11 @@
 			<artifactId>telegrambots</artifactId>
 			<version>${telegrambots.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambotsextensions</artifactId>
+			<version>${telegrambots.version}</version>
+		</dependency>
 
 		<!-- Development -->
 		<dependency>
