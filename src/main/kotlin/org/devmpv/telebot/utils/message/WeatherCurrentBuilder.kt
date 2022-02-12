@@ -1,13 +1,10 @@
 package org.devmpv.telebot.utils.message
 
 import org.devmpv.telebot.domain.weather.WeatherReport
+import org.devmpv.telebot.utils.Constant.Companion.DATE_TIME_FORMATTER
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 
-object CurrentWeatherMessageBuilder {
-
-    private val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy HH:mm:ss", Locale("ru"))
+object WeatherCurrentBuilder {
 
     fun toMessage(chatId: Long, weatherReport: WeatherReport?): SendMessage {
         val message = SendMessage()
@@ -24,8 +21,8 @@ object CurrentWeatherMessageBuilder {
                     Ветер:       ${it.current.wind_speed} м/c
                     Порывы:      ${it.current.wind_gust} м/c
                     ```
-                    Данные на ${it.reportDateTime.format(formatter)}
-                    """.trimIndent()
+                    Данные на ${it.reportDateTime.format(DATE_TIME_FORMATTER)}
+            """.trimIndent()
         }.orEmpty()
         return message
     }

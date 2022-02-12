@@ -4,5 +4,7 @@ enum class Commands(
     val identifier: String,
     val description: String
 ) {
-    WEATHER("weather", "Get weather report")
+    WEATHER("weather", "Current weather report"),
+    HOURLY("hourly", "Hourly weather forecast"),
+    DAYLY("daily", "Daily weather forecast")
 }

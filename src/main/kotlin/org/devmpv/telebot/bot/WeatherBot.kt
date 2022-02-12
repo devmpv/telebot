@@ -1,12 +1,10 @@
 package org.devmpv.telebot.bot
 
 import mu.KotlinLogging
-import org.devmpv.telebot.bot.commands.Commands
+import org.devmpv.telebot.bot.commands.DailyCommand
+import org.devmpv.telebot.bot.commands.HourlyCommand
 import org.devmpv.telebot.bot.commands.WeatherCommand
-import org.devmpv.telebot.config.properties.OpenWeatherProperties
 import org.devmpv.telebot.config.properties.TelebotProperties
-import org.devmpv.telebot.service.WeatherService
-import org.devmpv.telebot.utils.message.CurrentWeatherMessageBuilder
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
@@ -16,13 +14,17 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException
 @Component
 class WeatherBot(
     private val telebotProperties: TelebotProperties,
-    private val weatherCommand: WeatherCommand
+    private val weatherCommand: WeatherCommand,
+    private val hourlyCommand: HourlyCommand,
+    private val dailyCommand: DailyCommand
 ) : TelegramLongPollingCommandBot() {
 
     private val logger = KotlinLogging.logger {}
 
     init {
         register(weatherCommand)
+        register(hourlyCommand)
+        register(dailyCommand)
 
         logger.info { "Initializing bot named ${telebotProperties.auth.username}" }
     }

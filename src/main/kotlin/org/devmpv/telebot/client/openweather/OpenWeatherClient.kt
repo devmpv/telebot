@@ -20,7 +20,7 @@ class OpenWeatherClient(
                 lat = openWeatherProperties.latitude,
                 lon = openWeatherProperties.longitude,
                 appid = openWeatherProperties.appid,
-                exclude = arrayOf(Exclude.alerts, Exclude.daily, Exclude.minutely)
+                exclude = arrayOf(Exclude.alerts, Exclude.minutely)
             )
         } catch (e: FeignException) {
             logger.error(e) { "Unable to get weather response" }
